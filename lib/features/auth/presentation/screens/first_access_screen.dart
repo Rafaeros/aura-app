@@ -1,15 +1,17 @@
-import 'package:aura/core/exception/app_exception.dart';
-import 'package:aura/core/utils/ui_message_handler.dart';
-import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
-import 'package:aura/core/routes/app_routes.dart';
+import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
+
+import 'package:aura/core/exception/app_exception.dart';
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
+import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_text_field.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
+import 'package:aura/core/routes/app_routes.dart';
+import 'package:aura/core/utils/ui_message_handler.dart';
 import 'package:aura/features/auth/presentation/controllers/login_controller.dart';
-import 'package:flutter/material.dart';
 
 class FirstAccessScreen extends StatefulWidget {
   const FirstAccessScreen({super.key, required this.email});

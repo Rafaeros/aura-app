@@ -1,8 +1,8 @@
-import 'package:aura/core/exception/app_exception.dart';
-import 'package:aura/features/auth/data/models/auth_response_model.dart';
 import 'package:dio/dio.dart';
 
-import '../services/auth_api_service.dart';
+import 'package:aura/core/exception/app_exception.dart';
+import 'package:aura/features/auth/data/models/auth_response_model.dart';
+import 'package:aura/features/auth/data/services/auth_api_service.dart';
 
 class AuthRepository {
   final AuthApiService _apiService;

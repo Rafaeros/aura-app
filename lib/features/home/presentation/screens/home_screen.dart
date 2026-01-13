@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/features/ble/presentation/screens/ble_scan_screen.dart';
+import 'package:aura/features/devices/presentation/screens/devices_screen.dart';
 import 'package:aura/features/home/presentation/controllers/home_controller.dart';
 import 'package:aura/features/home/presentation/screens/dashboard_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:aura/features/devices/presentation/screens/devices_screen.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

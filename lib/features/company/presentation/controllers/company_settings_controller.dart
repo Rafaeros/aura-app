@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/features/company/data/model/company_settings_model.dart';
 import 'package:aura/features/company/data/repository/company_settings_repository.dart';
-import 'package:flutter/material.dart';
 
 class CompanySettingsController extends ChangeNotifier {
   final CompanySettingsRepository _repository;

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_text_field.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
-import 'package:flutter/material.dart';
 
 class AddDeviceForm extends StatefulWidget {
   final bool isLoading;

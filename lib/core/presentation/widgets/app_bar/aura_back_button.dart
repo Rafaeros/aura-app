@@ -1,5 +1,6 @@
-import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aura/core/presentation/theme/app_colors.dart';
 
 class AuraBackButton extends StatelessWidget {
   final VoidCallback? onPressed;

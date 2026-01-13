@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/features/profile/data/model/user_profile_model.dart';
 import 'package:aura/features/profile/data/repository/profile_repository.dart';
-import 'package:flutter/material.dart';
 
 class ProfileController extends ChangeNotifier {
   final ProfileRepository _repository;

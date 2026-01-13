@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_text_field.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
 import 'package:aura/features/company/data/model/company_settings_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CompanySettingsForm extends StatefulWidget {
   final CompanySettingsModel? currentSettings;

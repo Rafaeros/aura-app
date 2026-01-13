@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar_action.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_popup_menu_item.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
+import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/features/devices/data/models/device_model.dart';
 import 'package:aura/features/devices/presentation/controllers/device_controller.dart';
 import 'package:aura/features/devices/presentation/widgets/device_map_widget.dart';
@@ -374,6 +375,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
       ),
     );
   }
+
   Widget _buildCardStructure({
     required Widget child,
     required String title,

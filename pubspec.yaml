@@ -63,8 +63,3 @@ flutter_native_splash:
   android_12:
     image: assets/images/icon.png
     color: "#0F172A"
-
-
-project_name: "aura" 
-ignored_files: # Opcional: arquivos para ignorar
-  - \/lib\/generated\/.*

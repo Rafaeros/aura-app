@@ -1,12 +1,14 @@
-import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
+import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/features/ble/data/dtos/ble_device_dto.dart';
 import 'package:aura/features/ble/presentation/controllers/ble_controller.dart';
 import 'package:aura/features/ble/presentation/widgets/ble_control_bar.dart';
 import 'package:aura/features/ble/presentation/widgets/ble_device_card.dart';
 import 'package:aura/features/ble/presentation/widgets/ble_empty_state.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BleScanScreen extends StatefulWidget {
   const BleScanScreen({super.key});

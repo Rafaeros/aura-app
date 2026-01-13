@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
 import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/features/devices/presentation/controllers/device_controller.dart';
 import 'package:aura/features/devices/presentation/widgets/device_list_item_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DevicesScreen extends StatefulWidget {
   const DevicesScreen({super.key});

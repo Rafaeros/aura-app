@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 enum DeviceType { classic, iBeacon, nordic, genericBeacon }

@@ -1,5 +1,5 @@
-import '../models/device_model.dart';
-import '../services/device_api_service.dart';
+import 'package:aura/features/devices/data/models/device_model.dart';
+import 'package:aura/features/devices/data/services/device_api_service.dart';
 
 class DeviceRepository {
   final DeviceApiService _apiService;

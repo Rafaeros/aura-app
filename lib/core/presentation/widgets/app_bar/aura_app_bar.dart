@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/user_profile_action_button.dart';
-import 'package:flutter/material.dart';
 
 class AuraAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

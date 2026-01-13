@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/features/auth/data/models/auth_response_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:aura/features/auth/data/repositories/auth_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends ChangeNotifier {
   final AuthRepository repository;
@@ -16,14 +18,16 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final AuthResponseModel? response = await repository.login(email, password);
+      final AuthResponseModel? response = await repository.login(
+        email,
+        password,
+      );
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt_token', response?.token ?? '');
-      
-      return response; 
-      
+
+      return response;
     } catch (e) {
-      rethrow; 
+      rethrow;
     } finally {
       isLoading = false;
       notifyListeners();

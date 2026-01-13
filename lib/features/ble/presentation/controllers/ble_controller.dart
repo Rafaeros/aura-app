@@ -1,8 +1,11 @@
 import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 import 'package:aura/features/ble/data/dtos/ble_device_dto.dart';
 import 'package:aura/features/ble/data/service/ble_service.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class BleController extends ChangeNotifier {
   final BleService _bleService = BleService.instance;

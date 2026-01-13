@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/features/ble/data/dtos/ble_device_dto.dart';
 import 'package:aura/features/ble/presentation/controllers/ble_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BleDeviceCard extends StatelessWidget {
   final BluetoothDeviceDTO deviceDto;

@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/core/routes/app_routes.dart';
@@ -5,8 +9,6 @@ import 'package:aura/core/utils/ui_message_handler.dart';
 import 'package:aura/features/company/data/model/company_settings_model.dart';
 import 'package:aura/features/company/presentation/controllers/company_settings_controller.dart';
 import 'package:aura/features/company/presentation/widgets/company_settings_form_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CompanyInitialSetupScreen extends StatefulWidget {
   const CompanyInitialSetupScreen({super.key});

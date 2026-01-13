@@ -1,5 +1,6 @@
-import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar_action.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_popup_menu_item.dart';
 

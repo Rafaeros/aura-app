@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:aura/features/devices/data/models/device_model.dart';
 import 'package:aura/features/devices/data/repository/device_respository.dart';
-import '../../data/models/device_model.dart';
 
 class DeviceController extends ChangeNotifier {
   DeviceRepository _repository;

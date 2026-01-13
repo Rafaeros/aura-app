@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
 import 'package:aura/features/devices/data/models/device_model.dart';
-import 'package:flutter/material.dart';
 
 class DeviceListItem extends StatelessWidget {
   final DeviceModel device;

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:aura/features/auth/presentation/screens/company_initial_setup_screen.dart';
 import 'package:aura/features/auth/presentation/screens/first_access_screen.dart';
 import 'package:aura/features/auth/presentation/screens/login_screen.dart';
@@ -8,7 +10,6 @@ import 'package:aura/features/devices/presentation/screens/device_details_screen
 import 'package:aura/features/devices/presentation/screens/devices_screen.dart';
 import 'package:aura/features/home/presentation/screens/home_screen.dart';
 import 'package:aura/features/profile/presentation/screens/user_profile_screen.dart';
-import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const login = '/';

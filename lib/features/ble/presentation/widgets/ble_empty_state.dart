@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/presentation/theme/app_colors.dart';
+
+import 'package:aura/core/presentation/theme/app_colors.dart';
 
 class BleEmptyState extends StatelessWidget {
   const BleEmptyState({super.key});
