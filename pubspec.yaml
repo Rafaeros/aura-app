@@ -1,0 +1,70 @@
+name: aura
+description: "Find your devices with Aura"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider: ^2.1.2
+  mqtt_client: ^10.0.0
+  cupertino_icons: ^1.0.8
+  flutter_map: ^8.2.2
+  latlong2: ^0.9.1
+  sqflite: ^2.4.2
+  sqflite_common_ffi: ^2.3.0
+  path: ^1.9.1
+  http: ^1.6.0
+  provider: ^6.1.2
+  flutter_secure_storage: ^9.2.4
+  flutter_blue_plus: 1.34.0
+  permission_handler: ^12.0.1
+  device_info_plus: ^12.3.0
+  intl: ^0.20.2
+  dio: ^5.7.0
+  shared_preferences: ^2.3.5
+  font_awesome_flutter: ^10.7.0
+  google_fonts: ^6.2.1
+
+
+dev_dependencies:
+  flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: 0.14.4
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.6
+  json_serializable: ^6.8.0
+
+
+flutter:
+  assets:
+    - assets/images/icon.png
+  uses-material-design: true
+
+flutter_launcher_icons:
+  android: "icon"
+  ios: true
+  
+  image_path: "assets/images/icon.png" 
+  
+  min_sdk_android: 21
+  
+  adaptive_icon_background: "#0F172A" 
+  adaptive_icon_foreground: "assets/images/icon.png"
+
+flutter_native_splash:
+  color: "#0F172A"
+  image: assets/images/icon.png 
+  android_12:
+    image: assets/images/icon.png
+    color: "#0F172A"
+
+
+project_name: "aura" 
+ignored_files: # Opcional: arquivos para ignorar
+  - \/lib\/generated\/.*

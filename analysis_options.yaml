@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - directives_ordering # Correct import order
+    - always_use_package_imports # Absolute imports
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
