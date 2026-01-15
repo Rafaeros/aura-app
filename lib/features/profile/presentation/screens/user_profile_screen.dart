@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
 import 'package:aura/core/routes/app_routes.dart';
+import 'package:aura/core/services/local_storage_service.dart';
 import 'package:aura/core/utils/format_utils.dart';
 import 'package:aura/core/utils/ui_message_handler.dart';
 import 'package:aura/features/profile/presentation/controller/profile_controller.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -20,6 +20,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final LocalStorageService _storage = LocalStorageService();
+
   @override
   void initState() {
     super.initState();
@@ -237,8 +239,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: double.infinity,
                       child: OutlinedButton.icon(
                         onPressed: () {
+                          _storage.clearAllSecure();
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                            AppRoutes.login,
+                            AppRoutes.splash,
                             (_) => false,
                           );
                         },
