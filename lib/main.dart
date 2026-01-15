@@ -1,3 +1,4 @@
+import 'package:aura/features/auth/presentation/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
@@ -86,6 +87,8 @@ void main() async {
         // =========================================================
         // We use the normal ChangeNotifierProvider and read the repository with context.read.
         // This avoids unnecessarily recreating the controller (and losing state).
+        ChangeNotifierProvider(create: (_) => SplashController()),
+
         ChangeNotifierProvider(
           create: (context) => LoginController(context.read<AuthRepository>()),
         ),
@@ -149,7 +152,7 @@ class AuraApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: AppRoutes.login,
+      initialRoute: AppRoutes.splash,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
