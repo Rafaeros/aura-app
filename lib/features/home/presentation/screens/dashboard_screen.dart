@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
 import 'package:aura/core/presentation/widgets/app_bar/user_profile_action_button.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
 import 'package:aura/features/home/presentation/controllers/home_controller.dart';
 import 'package:aura/features/telemetry/presentation/widgets/mqtt_status_card.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -22,7 +21,7 @@ class DashboardScreen extends StatelessWidget {
       appBar: AuraAppBar(
         title: "Aura Dashboard",
         icon: Icons.dashboard,
-        actions: const [UserProfileActionButton()],
+        actions: [UserProfileActionButton()],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
