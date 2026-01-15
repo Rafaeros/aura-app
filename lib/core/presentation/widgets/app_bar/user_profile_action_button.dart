@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar_action.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_popup_menu_item.dart';
+import 'package:aura/core/services/local_storage_service.dart';
 
 class UserProfileActionButton extends StatelessWidget {
-  const UserProfileActionButton({super.key});
+  UserProfileActionButton({super.key});
+  final LocalStorageService _storage = LocalStorageService();
 
   void _handleLogout(BuildContext context) {
     debugPrint("Logout...");
+    _storage.clearAllSecure();
     Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
   }
 

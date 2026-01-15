@@ -55,7 +55,7 @@ class AuraAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
 
-      actions: actions ?? [const UserProfileActionButton()],
+      actions: actions ?? [UserProfileActionButton()],
     );
   }
 
