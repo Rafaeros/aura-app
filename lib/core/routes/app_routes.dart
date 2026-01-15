@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:aura/features/auth/presentation/screens/company_initial_setup_screen.dart';
 import 'package:aura/features/auth/presentation/screens/first_access_screen.dart';
 import 'package:aura/features/auth/presentation/screens/login_screen.dart';
+import 'package:aura/features/auth/presentation/screens/splash_screen.dart';
+import 'package:aura/features/auth/presentation/screens/welcome_screen.dart';
 import 'package:aura/features/company/data/model/company_settings_model.dart';
 import 'package:aura/features/company/presentation/screens/company_settings_edit_screen.dart';
 import 'package:aura/features/devices/presentation/screens/add_device_screen.dart';
@@ -12,10 +14,16 @@ import 'package:aura/features/home/presentation/screens/home_screen.dart';
 import 'package:aura/features/profile/presentation/screens/user_profile_screen.dart';
 
 class AppRoutes {
-  static const login = '/';
+  static const splash = '/';
+
+  static const login = '/login';
+
+  static const welcome = '/welcome';
   static const firstAccess = '/first-access';
   static const companySetup = '/company/setup';
+
   static const home = "/home";
+
   static const profile = "/users/profile";
 
   static const companySettingsEdit = "/company/settings/edit";
@@ -28,6 +36,12 @@ class AppRoutes {
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case AppRoutes.splash:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case AppRoutes.welcome:
+        return MaterialPageRoute(builder: (_) => const WelcomeScreen());
+
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
