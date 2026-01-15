@@ -9,6 +9,7 @@ class AuthApiService {
     return await _dio.post(
       '/auth/login',
       data: {'email': email, 'password': password},
+      options: Options(extra: {'ignoreAuth': true}),
     );
   }
 
