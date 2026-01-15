@@ -1,5 +1,5 @@
+import 'package:aura/core/presentation/widgets/layout/aura_neon_logo.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 import 'package:aura/core/presentation/theme/app_colors.dart';
@@ -14,7 +14,7 @@ class BleControlBar extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
@@ -28,25 +28,10 @@ class BleControlBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color:
-                  controller.isScanning
-                      ? AppColors.primary.withValues(alpha: 0.1)
-                      : AppColors.textSecondary.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.radar,
-              color:
-                  controller.isScanning
-                      ? AppColors.primary
-                      : AppColors.textSecondary,
-              size: 28,
-            ),
-          ),
+          AuraNativeAnimatedLogo(size: 55, isAnimating: controller.isScanning),
+
           const SizedBox(width: 16),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +79,11 @@ class BleControlBar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF00E5FF), Color(0xFF2979FF)],
+        ),
         borderRadius: BorderRadius.circular(12),
       ),
       child: ElevatedButton(
