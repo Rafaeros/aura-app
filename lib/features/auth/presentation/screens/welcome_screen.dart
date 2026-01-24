@@ -9,12 +9,9 @@ class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   Future<void> _onContinue(BuildContext context) async {
-    // Marca que não é mais a primeira execução
     final storage = LocalStorageService();
     await storage.saveBool(LocalStorageService.keyIsFirstRun, false);
-
     if (context.mounted) {
-      // Redireciona para o Login
       Navigator.pushReplacementNamed(context, AppRoutes.login);
     }
   }
@@ -33,7 +30,6 @@ class WelcomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Logo
                     Container(
                       width: 120,
                       height: 120,
@@ -48,13 +44,12 @@ class WelcomeScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Image.asset(
-                          'assets/images/icon.png', // Certifique-se que este asset existe
+                          'assets/images/icon.png',
                           fit: BoxFit.contain,
                         ),
                       ),
                     ),
                     const SizedBox(height: 40),
-                    // Título
                     Text(
                       "Welcome To Aura",
                       style: TextStyle(
@@ -65,7 +60,6 @@ class WelcomeScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 16),
-                    // Subtítulo (Slogan)
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -98,7 +92,6 @@ class WelcomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              // Botão Continuar
               AuraPrimaryButton(
                 label: "CONTINUE",
                 icon: Icons.arrow_forward_rounded,

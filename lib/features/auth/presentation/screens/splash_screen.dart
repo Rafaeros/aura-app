@@ -15,17 +15,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Inicia a verificação de autenticação/primeira vez
     _checkAuth();
   }
 
   void _checkAuth() async {
     final controller = context.read<SplashController>();
-    // Essa função agora decide se vai pra Welcome, Login ou Home
     final route = await controller.checkAuthStatus();
 
     if (mounted) {
-      // Pequena animação de fade ao trocar de tela
       Navigator.pushReplacementNamed(context, route);
     }
   }
