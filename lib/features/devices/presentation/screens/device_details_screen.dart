@@ -1,10 +1,8 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:provider/provider.dart';
+import 'dart:async';
+import 'dart:developer';
 
 import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_app_bar.dart';
@@ -16,6 +14,9 @@ import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/features/devices/data/models/device_model.dart';
 import 'package:aura/features/devices/presentation/controllers/device_controller.dart';
 import 'package:aura/features/devices/presentation/widgets/device_map_widget.dart';
+import 'package:aura/features/telemetry/presentation/screens/telemetry_history_screen.dart';
+import 'package:aura/features/telemetry/presentation/widgets/telemetry_history_card.dart';
+import 'package:provider/provider.dart';
 
 class DeviceDetailsScreen extends StatefulWidget {
   final int deviceID;
@@ -45,7 +46,6 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
     if (_device != null) {
       _loadTags();
       _loadPositions();
-      _setupMqttListener();
     }
   }
 
@@ -64,26 +64,18 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
       if (freshData != null && mounted) {
         setState(() {
           _device = freshData;
+          _isLoadingTags = true;
+          _isLoadingPositions = true;
         });
+        _loadTags();
+        _loadPositions();
       } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Device not found or deleted"),
-              backgroundColor: Colors.redAccent,
-            ),
-          );
-          Navigator.pop(context);
-        }
+        if (mounted) Navigator.pop(context);
       }
     } catch (e) {
       log("Erro ao buscar detalhes: $e");
       if (mounted) Navigator.pop(context);
     }
-  }
-
-  void _setupMqttListener() {
-    // TODO: implement mqtt listener
   }
 
   Future<void> _loadTags() async {
@@ -201,18 +193,26 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
               ),
             );
           } else {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildInfoCard(),
-                  const SizedBox(height: 16),
-                  _buildTagsCard(),
-                  const SizedBox(height: 16),
-                  _buildMapCard(height: 400),
-                  const SizedBox(height: 40),
-                ],
+            return RefreshIndicator(
+              color: AppColors.primary,
+              backgroundColor: AppColors.surface,
+              onRefresh: _refreshDeviceDetails,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildInfoCard(),
+                    const SizedBox(height: 16),
+                    _buildTagsCard(),
+                    const SizedBox(height: 16),
+                    _buildMapCard(height: 400),
+                    const SizedBox(height: 20),
+                    _buildLogsCard(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             );
           }
@@ -316,7 +316,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
 
   Widget _buildMapCard({required double height}) {
     Widget content;
-    final positionList = _device?.positions ?? [];
+    final positionList = _device?.recentPositions ?? [];
 
     if (_isLoadingPositions) {
       content = const Center(
@@ -373,6 +373,24 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
           child: content,
         ),
       ),
+    );
+  }
+
+  Widget _buildLogsCard() {
+    return TelemetryHistoryCard(
+      telemetries: _device?.recentLogs ?? [],
+      onViewAll: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (context) => TelemetryHistoryScreen(
+                  deviceId: _device!.id!,
+                  deviceName: _device!.name ?? 'Device',
+                ),
+          ),
+        );
+      },
     );
   }
 
