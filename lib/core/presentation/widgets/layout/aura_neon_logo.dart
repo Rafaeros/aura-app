@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-// Importe seu arquivo de cores corretamente
 import 'package:aura/core/presentation/theme/app_colors.dart';
 
 class AuraNativeAnimatedLogo extends StatefulWidget {
@@ -26,7 +25,7 @@ class _AuraNativeAnimatedLogoState extends State<AuraNativeAnimatedLogo>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4), // Pulso mais lento e elegante
+      duration: const Duration(seconds: 4),
     );
 
     if (widget.isAnimating) {
@@ -61,21 +60,16 @@ class _AuraNativeAnimatedLogoState extends State<AuraNativeAnimatedLogo>
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // --- Camada de Animação (Arcos/Meias-Luas) ---
           if (widget.isAnimating) ...[
             _buildPulsingArc(delay: 0.0),
             _buildPulsingArc(delay: 0.25),
             _buildPulsingArc(delay: 0.5),
             _buildPulsingArc(delay: 0.75),
           ] else ...[
-            // Estado Parado (Idle)
             _buildStaticArc(scale: 0.7, opacity: 1.0),
             _buildStaticArc(scale: 0.9, opacity: 0.5),
             _buildStaticArc(scale: 1.1, opacity: 0.2),
           ],
-
-          // --- Texto Central ---
-          // Container com cor de fundo para "cortar" visualmente qualquer linha que passe perto
           Container(
             padding: EdgeInsets.symmetric(horizontal: widget.size * 0.05),
             child: _buildCentralText(),
@@ -94,7 +88,7 @@ class _AuraNativeAnimatedLogoState extends State<AuraNativeAnimatedLogo>
       child: Text(
         'AURA',
         style: TextStyle(
-          fontFamily: 'Courier', // Fonte técnica/monospace fica legal aqui
+          fontFamily: 'Courier',
           fontSize: widget.size * 0.20,
           fontWeight: FontWeight.w900,
           letterSpacing: widget.size * 0.02,
@@ -130,14 +124,10 @@ class _AuraNativeAnimatedLogoState extends State<AuraNativeAnimatedLogo>
       animation: _controller,
       builder: (context, child) {
         final double progress = ((_controller.value + delay) % 1.0);
-
-        // Animação de expansão
         final double scale = Tween<double>(
           begin: 0.6,
           end: 1.4,
         ).transform(Curves.easeOutQuad.transform(progress));
-
-        // Animação de desaparecer
         final double opacity = Tween<double>(
           begin: 1.0,
           end: 0.0,
@@ -161,7 +151,6 @@ class _AuraNativeAnimatedLogoState extends State<AuraNativeAnimatedLogo>
   }
 }
 
-// --- CustomPainter para Meias-Luas (Arcos) ---
 class _GradientHalfMoonPainter extends CustomPainter {
   final LinearGradient gradient;
   final double opacity;
@@ -177,13 +166,8 @@ class _GradientHalfMoonPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Rect rect = Offset.zero & size;
     final center = size.center(Offset.zero);
-    // Raio ajustado para caber na caixa
     final radius = (size.shortestSide / 2) - strokeWidth;
-
-    // Define a área onde os arcos serão desenhados
     final Rect arcRect = Rect.fromCircle(center: center, radius: radius);
-
-    // Cria o shader com opacidade
     final Gradient gradientWithOpacity = LinearGradient(
       begin: gradient.begin,
       end: gradient.end,
@@ -204,29 +188,18 @@ class _GradientHalfMoonPainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth =
               strokeWidth +
-              6 // Glow mais largo
+              6 
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15);
 
-    // --- CONFIGURAÇÃO DOS ARCOS (Meia Lua) ---
-    // Gap (espaço) em radianos nas laterais para o texto caber
-    // PI = 180 graus.
-    const double gapAngle =
-        0.00; // Ajuste este valor para abrir mais ou menos o círculo
+    const double gapAngle = 0.00;
     const double startAngleTop = math.pi + gapAngle;
     const double sweepAngle = math.pi - (2 * gapAngle);
 
     const double startAngleBottom = 0 + gapAngle;
 
-    // 1. Desenha o Glow (Brilho)
-    // Arco Superior
     canvas.drawArc(arcRect, startAngleTop, sweepAngle, false, glowPaint);
-    // Arco Inferior
     canvas.drawArc(arcRect, startAngleBottom, sweepAngle, false, glowPaint);
-
-    // 2. Desenha o Anel Nítido
-    // Arco Superior
     canvas.drawArc(arcRect, startAngleTop, sweepAngle, false, paint);
-    // Arco Inferior
     canvas.drawArc(arcRect, startAngleBottom, sweepAngle, false, paint);
   }
 
