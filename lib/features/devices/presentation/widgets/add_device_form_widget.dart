@@ -4,10 +4,11 @@ import 'package:aura/core/presentation/theme/app_colors.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_text_field.dart';
 import 'package:aura/core/presentation/widgets/layout/aura_card.dart';
+import 'package:aura/core/utils/ui_message_handler.dart';
 
 class AddDeviceForm extends StatefulWidget {
   final bool isLoading;
-  final Function(Map<String, String> data) onSave;
+  final Future<void> Function(Map<String, String> data) onSave;
 
   const AddDeviceForm({
     super.key,
@@ -31,13 +32,21 @@ class _AddDeviceFormState extends State<AddDeviceForm> {
     super.dispose();
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
-    widget.onSave({
-      'name': _nameController.text.trim(),
-      'dev_eui': _devEuiController.text.trim(),
-    });
+
+    try {
+      await widget.onSave({
+        'name': _nameController.text.trim(),
+        'dev_eui': _devEuiController.text.trim(),
+      });
+      
+    } catch (error) {
+      if (mounted) {
+        UiMessageHandler.handle(context, error);
+      }
+    }
   }
 
   @override
@@ -81,7 +90,7 @@ class _AddDeviceFormState extends State<AddDeviceForm> {
               ),
               validator: (v) {
                 if (v == null || v.isEmpty) return 'Required';
-                if (v.length < 8) return 'Invalid EUI (too short)';
+                if (v.length < 15) return 'Invalid EUI (too short)';
                 return null;
               },
             ),
