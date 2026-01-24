@@ -13,8 +13,6 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Connect to real MQTT state
-    final bool isMqttConnected = false;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -28,7 +26,7 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MqttStatusCard(isConnected: isMqttConnected),
+            MqttStatusCard(),
 
             const SizedBox(height: 24),
             const Text(
