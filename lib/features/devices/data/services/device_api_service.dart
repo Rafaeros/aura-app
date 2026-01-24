@@ -5,8 +5,19 @@ class DeviceApiService {
 
   DeviceApiService(this._dio);
 
-  Future<Response> getAllDevices() async {
-    return await _dio.get('/devices');
+  Future<Response> getAllDevices({int page = 0, int size = 10}) async {
+    return await _dio.get(
+      '/devices',
+      queryParameters: {'page': page, 'size': size},
+    );
+  }
+
+  Future<Response> getDeviceByDeveui(String deveui) async {
+    return await _dio.get('/devices/dev-eui/$deveui');
+  }
+
+  Future<Response> existsByDevEui(String deveui) async {
+    return await _dio.get('/devices/exists/$deveui');
   }
 
   Future<Response> getDeviceById(int id) async {
