@@ -12,7 +12,6 @@ enum UserRole {
   }
 }
 
-// --- POLICY / PERMISSIONS EXTENSION ---
 extension RoleCapabilities on UserRole {
   bool get canViewSensitiveData {
     return this == UserRole.ADMIN || this == UserRole.OWNER;
