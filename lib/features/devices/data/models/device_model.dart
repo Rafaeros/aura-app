@@ -1,5 +1,6 @@
 import 'package:aura/features/devices/data/models/device_position.dart';
 import 'package:aura/features/devices/data/models/device_tags.dart';
+import 'package:aura/features/telemetry/data/models/device_telemetry_model.dart';
 
 class DeviceModel {
   int? id;
@@ -12,7 +13,8 @@ class DeviceModel {
   String? createdAt;
   String? updatedAt;
   List<DeviceTag>? tags;
-  List<DevicePosition>? positions;
+  List<DevicePosition>? recentPositions;
+  List<DeviceTelemetryModel>? recentLogs;
 
   DeviceModel({
     this.id,
@@ -23,7 +25,8 @@ class DeviceModel {
     this.nwksKey,
     this.appsKey,
     this.tags,
-    this.positions,
+    this.recentPositions,
+    this.recentLogs,
     this.createdAt,
     this.updatedAt,
   });
@@ -37,18 +40,23 @@ class DeviceModel {
       appEui: json['appEui'] ?? json['app_eui'],
       nwksKey: json['nwksKey'] ?? json['nwks_key'],
       appsKey: json['appsKey'] ?? json['apps_key'],
+
       tags:
-          json['tags'] != null
-              ? (json['tags'] as List)
-                  .map((i) => DeviceTag.fromJson(i))
-                  .toList()
-              : [],
-      positions:
-          json['positions'] != null
-              ? (json['positions'] as List)
-                  .map((i) => DevicePosition.fromJson(i))
-                  .toList()
-              : [],
+          (json['tags'] as List?)?.map((i) => DeviceTag.fromJson(i)).toList() ??
+          [],
+
+      recentPositions:
+          (json['recent_positions'] as List?)
+              ?.map((i) => DevicePosition.fromJson(i))
+              .toList() ??
+          [],
+
+      recentLogs:
+          (json['recent_logs'] as List?)
+              ?.map((i) => DeviceTelemetryModel.fromJson(i))
+              .toList() ??
+          [],
+
       createdAt: json['createdAt'] ?? json['created_at'],
       updatedAt: json['updatedAt'] ?? json['updated_at'],
     );
