@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:aura/features/devices/data/models/device_model.dart';
-import 'package:aura/features/devices/data/repository/device_respository.dart';
+import 'package:aura/features/devices/data/repository/device_repository.dart';
 
 class DeviceController extends ChangeNotifier {
   DeviceRepository _repository;
@@ -9,6 +8,10 @@ class DeviceController extends ChangeNotifier {
   DeviceController(this._repository);
 
   List<DeviceModel> devices = [];
+
+  int _currentPage = 0;
+  final int _pageSize = 10;
+  bool isLastPage = false;
   bool isLoading = false;
   String? errorMessage;
 
@@ -16,10 +19,31 @@ class DeviceController extends ChangeNotifier {
     _repository = newRepo;
   }
 
-  Future<void> loadDevices() async {
+  Future<void> loadDevices({bool refresh = false}) async {
+    if (isLoading) return;
+    if (!refresh && isLastPage) return;
+
     _setLoading(true);
+
+    if (refresh) {
+      _currentPage = 0;
+      isLastPage = false;
+    }
+
     try {
-      devices = await _repository.getDevices();
+      final response = await _repository.getDevices(
+        page: _currentPage,
+        size: _pageSize,
+      );
+
+      if (refresh) {
+        devices = response.content;
+      } else {
+        devices.addAll(response.content);
+      }
+
+      isLastPage = response.last;
+      _currentPage++;
       errorMessage = null;
     } catch (e) {
       errorMessage = "Erro ao carregar dispositivos: ${e.toString()}";
@@ -44,18 +68,17 @@ class DeviceController extends ChangeNotifier {
     }
   }
 
-  Future<bool> registerDevice(String name, String devEui) async {
+  Future<void> registerDevice(String name, String devEui) async {
     _setLoading(true);
     try {
       final newDevicePartial = DeviceModel(name: name, devEui: devEui);
-      await _repository.createDevice(newDevicePartial);
-      await loadDevices();
 
-      return true;
+      await _repository.createDevice(newDevicePartial);
+      await loadDevices(refresh: true);
     } catch (e) {
       errorMessage = "Erro ao adicionar: ${e.toString()}";
       notifyListeners();
-      return false;
+      rethrow;
     } finally {
       _setLoading(false);
     }
@@ -69,6 +92,7 @@ class DeviceController extends ChangeNotifier {
     } catch (e) {
       errorMessage = "Erro ao excluir: ${e.toString()}";
       notifyListeners();
+      rethrow;
     }
   }
 
