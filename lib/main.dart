@@ -1,4 +1,8 @@
 import 'package:aura/features/auth/presentation/controllers/splash_controller.dart';
+import 'package:aura/features/telemetry/data/services/mqtt_service.dart';
+import 'package:aura/features/telemetry/data/services/telemetry_service.dart';
+import 'package:aura/features/telemetry/presentation/controllers/telemetry_history_controller.dart';
+import 'package:aura/features/telemetry/presentation/controllers/telemetry_sync_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
@@ -15,7 +19,7 @@ import 'package:aura/features/auth/presentation/controllers/login_controller.dar
 
 // --- DEVICES ---
 import 'package:aura/features/devices/data/services/device_api_service.dart';
-import 'package:aura/features/devices/data/repository/device_respository.dart';
+import 'package:aura/features/devices/data/repository/device_repository.dart';
 import 'package:aura/features/devices/presentation/controllers/device_controller.dart';
 
 // --- PROFILE ---
@@ -27,6 +31,10 @@ import 'package:aura/features/profile/presentation/controller/profile_controller
 import 'package:aura/features/company/data/service/company_settings_service.dart';
 import 'package:aura/features/company/data/repository/company_settings_repository.dart';
 import 'package:aura/features/company/presentation/controllers/company_settings_controller.dart';
+
+// --- TELEMETRY ---
+import 'package:aura/features/telemetry/presentation/controllers/telemetry_connection_controller.dart';
+import 'package:aura/features/telemetry/data/repositories/telemetry_repository.dart';
 
 // --- OTHERS ---
 import 'package:aura/features/home/presentation/controllers/home_controller.dart';
@@ -45,6 +53,10 @@ void main() async {
         // 1. Infrastructure (Globals)
         // =========================================================
         Provider<Dio>.value(value: dioClient.dio),
+
+        // MQTT Service (Singleton Instance)
+        // Needs to be provided so controllers can find it
+        Provider<MqttService>(create: (_) => MqttService.instance),
 
         // =========================================================
         // 2. DATA LAYER (Services & Repositories)
@@ -82,11 +94,38 @@ void main() async {
           update: (_, service, __) => CompanySettingsRepository(service),
         ),
 
+        // --- Telemetry (Updated) ---
+        // 1. API Service (assuming you have TelemetryApiService, otherwise adapt to Dio)
+        ProxyProvider<Dio, TelemetryApiService>(
+          update: (_, dio, __) => TelemetryApiService(dio),
+        ),
+        // 2. Repository
+        ProxyProvider<TelemetryApiService, TelemetryRepository>(
+          update: (_, service, __) => TelemetryRepository(service),
+        ),
+
         // =========================================================
-        // 3. PRESENTATION LAYER (Controllers / ViewModels)
+        // 3. BACKGROUND WORKERS (Logic Controllers)
         // =========================================================
-        // We use the normal ChangeNotifierProvider and read the repository with context.read.
-        // This avoids unnecessarily recreating the controller (and losing state).
+
+        // This is the "Magic" part.
+        // It injects MqttService + DeviceRepo + TelemetryRepo into the SyncController.
+        // lazy: false ensures it starts listening immediately when the app runs.
+        ProxyProvider3<
+          MqttService,
+          DeviceRepository,
+          TelemetryRepository,
+          TelemetrySyncController
+        >(
+          update:
+              (_, mqtt, devRepo, telRepo, __) =>
+                  TelemetrySyncController(mqtt, devRepo, telRepo),
+          lazy: false,
+        ),
+
+        // =========================================================
+        // 4. PRESENTATION LAYER (UI Controllers)
+        // =========================================================
         ChangeNotifierProvider(create: (_) => SplashController()),
 
         ChangeNotifierProvider(
@@ -114,8 +153,27 @@ void main() async {
         ChangeNotifierProvider(create: (_) => HomeController()),
         ChangeNotifierProvider(create: (_) => BleController()),
 
-        // Future Example: TelemetryController
-        // ChangeNotifierProvider(create: (ctx) => TelemetryController(ctx.read<TelemetryRepo>())),
+        // Telemetry UI Controller (For Connection Status Screen)
+        // Removed DeviceRepository dependency as discussed in refactoring
+        // =========================================================
+        // --- TELEMETRY CONTROLLERS (ATUALIZADO) ---
+        // =========================================================
+
+        // 1. Controller de Conexão (Botão Conectar/Desconectar)
+        ChangeNotifierProvider(
+          create:
+              (context) => TelemetryConnectionController(
+                context.read<TelemetryRepository>(),
+              ),
+        ),
+
+        // 2. Controller de Histórico (Lista de Logs Paginada)
+        ChangeNotifierProvider(
+          create:
+              (context) => TelemetryHistoryController(
+                context.read<TelemetryRepository>(),
+              ),
+        ),
       ],
       child: const AuraApp(),
     ),
