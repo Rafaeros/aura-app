@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.1.2
-  mqtt_client: ^10.0.0
+  mqtt_client: ^10.11.6
   cupertino_icons: ^1.0.8
   flutter_map: ^8.2.2
   latlong2: ^0.9.1
