@@ -30,6 +30,8 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
   late final TextEditingController _mqttPortController;
   late final TextEditingController _mqttUserController;
   late final TextEditingController _mqttPassController;
+  late final TextEditingController _mqttSubscribeTopicController;
+  late final TextEditingController _mqttPublishTopicController;
 
   @override
   void initState() {
@@ -49,6 +51,12 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
     _mqttPassController = TextEditingController(
       text: widget.currentSettings?.mqttPassword,
     );
+    _mqttSubscribeTopicController = TextEditingController(
+      text: widget.currentSettings?.subscribeTopic,
+    );
+    _mqttPublishTopicController = TextEditingController(
+      text: widget.currentSettings?.publishTopic,
+    );
   }
 
   @override
@@ -58,6 +66,8 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
     _mqttPortController.dispose();
     _mqttUserController.dispose();
     _mqttPassController.dispose();
+    _mqttSubscribeTopicController.dispose();
+    _mqttPublishTopicController.dispose();
     super.dispose();
   }
 
@@ -65,11 +75,13 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
     if (!_formKey.currentState!.validate()) return;
 
     final settings = CompanySettingsModel(
-      everynetAccessToken: _apiKeyController.text,
-      mqttHost: _mqttHostController.text,
-      mqttPort: int.tryParse(_mqttPortController.text) ?? 8883,
-      mqttUsername: _mqttUserController.text,
-      mqttPassword: _mqttPassController.text,
+      everynetAccessToken: _apiKeyController.text.trim(),
+      mqttHost: _mqttHostController.text.trim(),
+      mqttPort: int.tryParse(_mqttPortController.text.trim()) ?? 8883,
+      mqttUsername: _mqttUserController.text.trim(),
+      mqttPassword: _mqttPassController.text.trim(),
+      subscribeTopic: _mqttSubscribeTopicController.text.trim(),
+      publishTopic: _mqttPublishTopicController.text.trim(),
     );
 
     widget.onSave(settings);
@@ -89,7 +101,6 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
               label: "Access Token (API Key)",
               controller: _apiKeyController,
               hint: "sk_live_...",
-              behavior: AuraFieldBehavior.password,
               prefixIcon: const Icon(Icons.vpn_key, color: AppColors.primary),
               validator: (v) => v!.isEmpty ? 'Required' : null,
             ),
@@ -125,9 +136,26 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
 
             AuraTextField(
               label: "Password",
-              behavior: AuraFieldBehavior.password,
               prefixIcon: const Icon(Icons.lock, color: AppColors.primary),
               controller: _mqttPassController,
+            ),
+
+            const SizedBox(height: 24),
+
+            _buildSectionTitle("Topics"),
+            AuraTextField(
+              label: "Subscribe Topic",
+              controller: _mqttSubscribeTopicController,
+              prefixIcon: const Icon(Icons.topic, color: AppColors.primary),
+              validator: (v) => v!.isEmpty ? 'Required' : null,
+            ),
+            const SizedBox(height: 16),
+
+            AuraTextField(
+              label: "Publish Topic",
+              controller: _mqttPublishTopicController,
+              prefixIcon: const Icon(Icons.topic, color: AppColors.primary),
+              validator: (v) => v!.isEmpty ? 'Required' : null,
             ),
 
             const SizedBox(height: 40),

@@ -4,6 +4,8 @@ class CompanySettingsModel {
   int mqttPort;
   String mqttUsername;
   String? mqttPassword;
+  String? subscribeTopic;
+  String? publishTopic;
 
   CompanySettingsModel({
     required this.everynetAccessToken,
@@ -11,6 +13,8 @@ class CompanySettingsModel {
     required this.mqttPort,
     required this.mqttUsername,
     this.mqttPassword,
+    this.subscribeTopic,
+    this.publishTopic,
   });
 
   factory CompanySettingsModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class CompanySettingsModel {
       mqttPort: json['mqtt_port'],
       mqttUsername: json['mqtt_username'],
       mqttPassword: json['mqtt_password'],
+      subscribeTopic: json['subscribe_topic'],
+      publishTopic: json['publish_topic'],
     );
   }
 
@@ -30,6 +36,8 @@ class CompanySettingsModel {
       'mqtt_port': mqttPort,
       'mqtt_username': mqttUsername,
       'mqtt_password': mqttPassword,
+      'subscribe_topic': subscribeTopic,
+      'publish_topic': publishTopic,
     };
   }
 }
