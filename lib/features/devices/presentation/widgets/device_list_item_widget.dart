@@ -12,10 +12,9 @@ class DeviceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final displayName =
-        (device.name != null && device.name!.isNotEmpty)
-            ? device.name!
-            : "Unnamed Device";
+    final displayName = (device.name != null && device.name!.isNotEmpty)
+        ? device.name!
+        : "Unnamed Device";
 
     final displayEui = device.devEui ?? "N/A";
 
@@ -25,6 +24,7 @@ class DeviceListItem extends StatelessWidget {
         onTap: onTap,
         padding: const EdgeInsets.all(16),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildIconContainer(),
             const SizedBox(width: 16),
@@ -62,15 +62,58 @@ class DeviceListItem extends StatelessWidget {
                       ),
                     ],
                   ),
+                  _buildTags(),
                 ],
               ),
             ),
+            const SizedBox(width: 8),
             Icon(
               Icons.chevron_right_rounded,
               color: AppColors.textSecondary.withValues(alpha: 0.4),
               size: 24,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTags() {
+    if (device.tags == null || device.tags!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: SizedBox(
+        height: 24, 
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: device.tags!.length,
+          separatorBuilder: (_, __) => const SizedBox(width: 6),
+          itemBuilder: (context, index) {
+            final tag = device.tags![index];
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              alignment: Alignment.center, 
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.3),
+                  width: 0.5,
+                ),
+              ),
+              child: Text(
+                tag.name,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textSecondary.withValues(alpha: 0.9),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
