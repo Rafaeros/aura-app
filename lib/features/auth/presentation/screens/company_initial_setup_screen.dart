@@ -1,3 +1,4 @@
+import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -54,8 +55,9 @@ class _CompanyInitialSetupScreenState extends State<CompanyInitialSetupScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
+        icon: Icons.settings,
         title: "Integration Setup",
-        leading: SizedBox(),
+        leading: AuraBackButton(),
         actions: [],
       ),
       body: SingleChildScrollView(
