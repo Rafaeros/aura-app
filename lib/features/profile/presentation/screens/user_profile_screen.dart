@@ -1,3 +1,5 @@
+import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
+import 'package:aura/features/auth/data/models/user_role_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -42,6 +44,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final controller = context.watch<ProfileController>();
     final user = controller.user;
+
+    final bool canEdit = user?.role.canEditCompanySettings ?? false;
+    final bool canViewSensitiveData = user?.role.canViewSensitiveData ?? false;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -101,6 +106,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Icons.badge,
                             ),
 
+                            if (user.company!.settings == null) ...[
+                              SizedBox(height: 24),
+
+                              AuraPrimaryButton(
+                                icon: Icons.settings,
+                                label: "Configure Integrations",
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.companySetup,
+                                    arguments: user.company!.id,
+                                  );
+                                },
+                              ),
+                            ],
+
                             if (user.company!.settings != null) ...[
                               const SizedBox(height: 24),
                               Container(
@@ -139,39 +160,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ],
                                         ),
 
-                                        Material(
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                            onTap: () async {
-                                              final result =
-                                                  await Navigator.pushNamed(
-                                                    context,
-                                                    AppRoutes
-                                                        .companySettingsEdit,
-                                                    arguments:
-                                                        user.company!.settings,
-                                                  );
-
-                                              if (result == true && mounted) {
-                                                _loadProfile();
-                                              }
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(
-                                                4.0,
-                                              ),
-                                              child: Icon(
-                                                Icons.edit_rounded,
-                                                size: 18,
-                                                color: AppColors.primary
-                                                    .withValues(alpha: 0.8),
+                                        if (canEdit)
+                                          Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              onTap: () async {
+                                                await Navigator.pushNamed(
+                                                  context,
+                                                  AppRoutes.companySettingsEdit,
+                                                  arguments:
+                                                      user.company!.settings,
+                                                );
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                  4.0,
+                                                ),
+                                                child: Icon(
+                                                  Icons.edit_rounded,
+                                                  size: 18,
+                                                  color: AppColors.primary
+                                                      .withValues(alpha: 0.8),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                     const SizedBox(height: 16),
@@ -196,34 +211,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
 
                                     _buildTechField(
+                                      "Subscribe Topic",
+                                      user.company!.settings!.subscribeTopic!,
+                                      isSecret: false,
+                                    ),
+
+                                    const Divider(
+                                      height: 16,
+                                      color: Colors.white10,
+                                    ),
+
+                                    _buildTechField(
+                                      "Publish Topic",
+                                      user.company!.settings!.publishTopic!,
+                                      isSecret: false,
+                                    ),
+
+                                    const Divider(
+                                      height: 16,
+                                      color: Colors.white10,
+                                    ),
+
+                                    _buildTechField(
                                       "MQTT User",
                                       user.company!.settings!.mqttUsername,
-                                      isSecret: true,
+                                      isSecret:
+                                          false,
                                     ),
-                                    const Divider(
-                                      height: 16,
-                                      color: Colors.white10,
-                                    ),
-
-                                    _buildTechField(
-                                      "MQTT Password",
-                                      user.company!.settings!.mqttPassword ??
-                                          '',
-                                      isSecret: true,
-                                    ),
-                                    const Divider(
-                                      height: 16,
-                                      color: Colors.white10,
-                                    ),
-
-                                    _buildTechField(
-                                      "Everynet API Key",
-                                      user
-                                          .company!
-                                          .settings!
-                                          .everynetAccessToken,
-                                      isSecret: true,
-                                    ),
+                                    if (canViewSensitiveData) ...[
+                                      const Divider(
+                                        height: 16,
+                                        color: Colors.white10,
+                                      ),
+                                      _buildTechField(
+                                        "MQTT Password",
+                                        user.company!.settings!.mqttPassword ??
+                                            '',
+                                        isSecret: false,
+                                      ),
+                                      const Divider(
+                                        height: 16,
+                                        color: Colors.white10,
+                                      ),
+                                      _buildTechField(
+                                        "Everynet API Key",
+                                        user
+                                            .company!
+                                            .settings!
+                                            .everynetAccessToken,
+                                        isSecret: false,
+                                      ),
+                                    ] else ...[
+                                      const SizedBox(height: 16),
+                                      Center(
+                                        child: Text(
+                                          "• Sensitive credentials hidden •",
+                                          style: TextStyle(
+                                            color: AppColors.textSecondary
+                                                .withValues(alpha: 0.3),
+                                            fontSize: 10,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ],
                                 ),
                               ),
