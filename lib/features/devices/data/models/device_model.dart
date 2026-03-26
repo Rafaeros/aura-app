@@ -46,13 +46,13 @@ class DeviceModel {
           [],
 
       recentPositions:
-          (json['recent_positions'] as List?)
+          ((json['recentPositions'] ?? json['positions'] ?? json['recent_positions']) as List?)
               ?.map((i) => DevicePosition.fromJson(i))
               .toList() ??
           [],
 
       recentLogs:
-          (json['recent_logs'] as List?)
+          ((json['recentLogs'] ?? json['logs'] ?? json['recent_logs']) as List?)
               ?.map((i) => DeviceTelemetryModel.fromJson(i))
               .toList() ??
           [],
@@ -63,6 +63,6 @@ class DeviceModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {'name': name, 'dev_eui': devEui};
+    return {'name': name, 'devEui': devEui};
   }
 }

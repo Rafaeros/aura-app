@@ -37,7 +37,7 @@ class BleControlBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  controller.isScanning ? "Scanning..." : "Idle",
+                  controller.isScanning ? "Escaneando..." : "Parado",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -46,8 +46,8 @@ class BleControlBar extends StatelessWidget {
                 ),
                 Text(
                   controller.isScanning
-                      ? "Discovering devices..."
-                      : "Ready to scan.",
+                      ? "Buscando dispositivos..."
+                      : "Pronto para escaneamento.",
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppColors.textSecondary,
@@ -82,7 +82,7 @@ class BleControlBar extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF00E5FF), Color(0xFF2979FF)],
+          colors: [AppColors.primary, AppColors.secondary],
         ),
         borderRadius: BorderRadius.circular(12),
       ),

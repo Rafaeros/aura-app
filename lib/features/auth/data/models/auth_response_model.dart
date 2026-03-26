@@ -35,9 +35,9 @@ class AuthResponseModel {
 
       role: json['role'] ?? 'USER',
 
-      isSettingsConfigured: json['is_settings_configured'] ?? false,
+      isSettingsConfigured: json['isSettingsConfigured'] ?? json['is_settings_configured'] ?? false,
 
-      isFirstAccess: json['is_first_access'] ?? false,
+      isFirstAccess: json['isFirstAccess'] ?? json['is_first_access'] ?? false,
     );
   }
 }

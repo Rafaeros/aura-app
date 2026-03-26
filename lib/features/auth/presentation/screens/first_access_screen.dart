@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -70,12 +71,9 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Account activated!"),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-        ),
+      AppNotifications.showSuccess(
+        context: context,
+        message: "Conta ativada!",
       );
       if (nextRoute != null) {
         Navigator.pushNamedAndRemoveUntil(context, nextRoute, (_) => false);
@@ -94,7 +92,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AuraAppBar(
-        title: "Activate Account",
+        title: "Ativar Conta",
         actions: const [],
         leading: AuraBackButton(
           onPressed: () {
@@ -117,7 +115,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Welcome!",
+                    "Bem-vindo(a)!",
                     style: TextStyle(
                       color: AppColors.textPrimary,
                       fontSize: 28,
@@ -126,7 +124,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "To activate your account, please confirm your details and set a new password.",
+                    "Para ativar sua conta, confirme seus dados e defina uma nova senha.",
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 14,
@@ -157,7 +155,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                     ),
                     const SizedBox(height: 20),
                     AuraTextField(
-                      label: "Current password",
+                      label: "Senha atual",
                       controller: _tempPassController,
                       hint: "Ex: Mudar@123",
                       behavior: AuraFieldBehavior.password,
@@ -171,7 +169,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                     const Divider(color: Colors.white10, height: 1),
                     const SizedBox(height: 24),
                     const Text(
-                      "Set New Password",
+                      "Definir Nova Senha",
                       style: TextStyle(
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.bold,
@@ -180,7 +178,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                     ),
                     const SizedBox(height: 16),
                     AuraTextField(
-                      label: "New password",
+                      label: "Nova senha",
                       controller: _newPassController,
                       behavior: AuraFieldBehavior.password,
                       prefixIcon: const Icon(
@@ -195,7 +193,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                     ),
                     const SizedBox(height: 16),
                     AuraTextField(
-                      label: "Confirm new password",
+                      label: "Confirmar nova senha",
                       controller: _confirmPassController,
                       behavior: AuraFieldBehavior.password,
                       prefixIcon: const Icon(
@@ -206,7 +204,7 @@ class _FirstAccessScreenState extends State<FirstAccessScreen> {
                     ),
                     const SizedBox(height: 32),
                     AuraPrimaryButton(
-                      label: "Activate Account",
+                      label: "Ativar Conta",
                       isLoading: _isLoading,
                       icon: Icons.check_circle_outline_rounded,
                       onPressed: _activateAccount,

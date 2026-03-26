@@ -47,7 +47,7 @@ class BleDeviceCard extends StatelessWidget {
             ),
           ),
           title: Text(
-            deviceDto.name.isNotEmpty ? deviceDto.name : "Unknown Device",
+            deviceDto.name.isNotEmpty ? deviceDto.name : "Dispositivo Desconhecido",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: AppColors.textPrimary,
@@ -126,7 +126,7 @@ class BleDeviceCard extends StatelessWidget {
           context.read<BleController>().disconnect(dto.device);
         },
         icon: const Icon(Icons.link_off, color: Colors.redAccent),
-        tooltip: "Disconnect",
+        tooltip: "Desconectar",
       );
     }
 
@@ -136,7 +136,7 @@ class BleDeviceCard extends StatelessWidget {
           context.read<BleController>().connect(dto.device);
         },
         icon: Icon(Icons.link, color: AppColors.primary),
-        tooltip: "Connect",
+        tooltip: "Conectar",
       );
     }
 
@@ -158,7 +158,7 @@ class BleDeviceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (dto.type == DeviceType.iBeacon) ...[
-            _buildSectionHeader("iBeacon Data"),
+            _buildSectionHeader("Dados iBeacon"),
             _buildInfoRow("UUID", dto.beaconUuid ?? "-"),
             Row(
               children: [
@@ -168,7 +168,7 @@ class BleDeviceCard extends StatelessWidget {
             ),
           ],
           if (dto.type == DeviceType.nordic) ...[
-            _buildSectionHeader("Nordic Sensor"),
+            _buildSectionHeader("Sensor Nordic"),
             if (dto.sensorMacId != null)
               _buildInfoRow("MAC ID", dto.sensorMacId!),
             if (dto.temperature != null)
@@ -234,11 +234,11 @@ class BleDeviceCard extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 16),
-          _buildInfoRow("Device ID", dto.id),
+          _buildInfoRow("ID do Dispositivo", dto.id),
           if (dto.manufacturerData.isNotEmpty) ...[
             const SizedBox(height: 12),
             const Text(
-              "Manufacturer Data (HEX)",
+              "Dados do Fabricante (HEX)",
               style: TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 10,

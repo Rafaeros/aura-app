@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     Text(
-                      "Welcome To Aura",
+                      "Bem-vindo(a) ao Aura",
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w800,
@@ -69,9 +69,9 @@ class WelcomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                         children: [
-                          const TextSpan(text: "Make the "),
+                          const TextSpan(text: "Tornando o "),
                           TextSpan(
-                            text: "invisible",
+                            text: "invisível",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           const TextSpan(text: ". "),
                           TextSpan(
-                            text: "Visible",
+                            text: "visível",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               AuraPrimaryButton(
-                label: "CONTINUE",
+                label: "CONTINUAR",
                 icon: Icons.arrow_forward_rounded,
                 onPressed: () => _onContinue(context),
               ),

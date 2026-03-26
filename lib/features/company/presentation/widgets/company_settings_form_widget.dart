@@ -98,70 +98,70 @@ class _CompanySettingsFormState extends State<CompanySettingsForm> {
           children: [
             _buildSectionTitle("Everynet"),
             AuraTextField(
-              label: "Access Token (API Key)",
+              label: "Token de Acesso (API Key)",
               controller: _apiKeyController,
               hint: "sk_live_...",
               prefixIcon: const Icon(Icons.vpn_key, color: AppColors.primary),
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: (v) => v!.isEmpty ? 'Obrigatório' : null,
             ),
             const SizedBox(height: 24),
 
-            _buildSectionTitle("MQTT Broker"),
+            _buildSectionTitle("Broker MQTT"),
             AuraTextField(
               label: "Host",
               controller: _mqttHostController,
               hint: "ex: broker.hivemq.com",
               prefixIcon: const Icon(Icons.cloud, color: AppColors.primary),
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: (v) => v!.isEmpty ? 'Obrigatório' : null,
             ),
             const SizedBox(height: 16),
 
             AuraTextField(
-              label: "Port",
+              label: "Porta",
               controller: _mqttPortController,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               hint: "ex: 1883 ou 8883",
               prefixIcon: const Icon(Icons.numbers, color: AppColors.primary),
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: (v) => v!.isEmpty ? 'Obrigatório' : null,
             ),
             const SizedBox(height: 16),
 
             AuraTextField(
-              label: "Username",
+              label: "Usuário",
               controller: _mqttUserController,
               prefixIcon: const Icon(Icons.person, color: AppColors.primary),
             ),
             const SizedBox(height: 16),
 
             AuraTextField(
-              label: "Password",
+              label: "Senha",
               prefixIcon: const Icon(Icons.lock, color: AppColors.primary),
               controller: _mqttPassController,
             ),
 
             const SizedBox(height: 24),
 
-            _buildSectionTitle("Topics"),
+            _buildSectionTitle("Tópicos"),
             AuraTextField(
-              label: "Subscribe Topic",
+              label: "Tópico de Inscrição",
               controller: _mqttSubscribeTopicController,
               prefixIcon: const Icon(Icons.topic, color: AppColors.primary),
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: (v) => v!.isEmpty ? 'Obrigatório' : null,
             ),
             const SizedBox(height: 16),
 
             AuraTextField(
-              label: "Publish Topic",
+              label: "Tópico de Publicação",
               controller: _mqttPublishTopicController,
               prefixIcon: const Icon(Icons.topic, color: AppColors.primary),
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: (v) => v!.isEmpty ? 'Obrigatório' : null,
             ),
 
             const SizedBox(height: 40),
 
             AuraPrimaryButton(
-              label: "SAVE SETTINGS",
+              label: "SALVAR CONFIGURAÇÕES",
               icon: Icons.save,
               isLoading: widget.isLoading,
               onPressed: _submit,

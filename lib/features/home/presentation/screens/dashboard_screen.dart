@@ -30,7 +30,7 @@ class DashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
             const Text(
-              "Quick Actions",
+              "Ações Rápidas",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class DashboardScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 children: [
                   _ActionCard(
-                    title: "My Devices",
+                    title: "Meus Dispositivos",
                     icon: Icons.devices_other_rounded,
                     color: Colors.blueAccent,
                     onTap: () {

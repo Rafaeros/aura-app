@@ -1,3 +1,4 @@
+import 'package:aura/core/client/api_response.dart';
 import 'package:aura/features/profile/data/model/user_profile_model.dart';
 import 'package:aura/features/profile/data/service/profile_service.dart';
 
@@ -8,6 +9,10 @@ class ProfileRepository {
 
   Future<UserProfileModel> getCurrentUserProfile() async {
     final response = await _apiService.findCurrentUserProfile();
-    return UserProfileModel.fromJson(response.data);
+    final apiResponse = ApiResponse<UserProfileModel>.fromJson(
+      response.data,
+      (json) => UserProfileModel.fromJson(json as Map<String, dynamic>),
+    );
+    return apiResponse.data!;
   }
 }

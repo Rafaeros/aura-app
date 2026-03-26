@@ -61,7 +61,7 @@ class TelemetryConnectionController extends ChangeNotifier {
       await _mqttService.connect(config);
 
       if (_mqttService.connectionState.value == MqttCurrentConnectionState.connected) {
-        await _mqttService.subscribeToTopic(config.publishTopic);
+        await _mqttService.subscribeToTopic(config.subscribeTopic);
       }
       
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,7 +26,7 @@ class TelemetryListItem extends StatelessWidget {
     double lat = 0.0;
     double lng = 0.0;
     double frequency = (radio['freq'] as num?)?.toDouble() ?? 0.0;
-    int? rssi = hardware['rssi'];
+    int? rssi = (hardware['rssi'] as num?)?.toInt();
 
     final type = telemetry.type.toUpperCase();
     final isUplink = type == 'UPLINK';
@@ -119,7 +120,7 @@ class TelemetryListItem extends StatelessWidget {
       );
     }
     return const Text(
-      "View payload",
+      "Ver payload",
       style: TextStyle(fontSize: 11, color: Colors.grey),
     );
   }
@@ -150,11 +151,9 @@ class TelemetryListItem extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: _prettyPrint(json)));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("JSON Copied!"),
-                      duration: Duration(milliseconds: 800),
-                    ),
+                  AppNotifications.showSuccess(
+                    context: context, 
+                    message: "JSON copiado para a área de transferência!"
                   );
                 },
                 child: const Icon(

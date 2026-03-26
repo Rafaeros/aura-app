@@ -1,3 +1,4 @@
+import 'package:aura/core/client/api_interceptor.dart';
 import 'package:aura/core/routes/app_routes.dart';
 import 'package:aura/core/services/local_storage_service.dart';
 import 'package:aura/main.dart';
@@ -54,5 +55,8 @@ class DioClient {
         responseBody: true,
       ),
     );
+
+    // Adds interceptor to parse spring backend ApiResponses that return non-2xx into AppExceptions
+    dio.interceptors.add(ApiInterceptor());
   }
 }

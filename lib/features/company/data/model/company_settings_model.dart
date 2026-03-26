@@ -19,25 +19,25 @@ class CompanySettingsModel {
 
   factory CompanySettingsModel.fromJson(Map<String, dynamic> json) {
     return CompanySettingsModel(
-      everynetAccessToken: json['everynet_access_token'],
-      mqttHost: json['mqtt_host'],
-      mqttPort: json['mqtt_port'],
-      mqttUsername: json['mqtt_username'],
-      mqttPassword: json['mqtt_password'],
-      subscribeTopic: json['subscribe_topic'],
-      publishTopic: json['publish_topic'],
+      everynetAccessToken: json['everynetAccessToken'] ?? json['everynet_access_token'] ?? '',
+      mqttHost: json['mqttHost'] ?? json['mqtt_host'] ?? '',
+      mqttPort: json['mqttPort'] ?? json['mqtt_port'] ?? 1883,
+      mqttUsername: json['mqttUsername'] ?? json['mqtt_username'] ?? '',
+      mqttPassword: json['mqttPassword'] ?? json['mqtt_password'],
+      subscribeTopic: json['subscribeTopic'] ?? json['subscribe_topic'],
+      publishTopic: json['publishTopic'] ?? json['publish_topic'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'everynet_access_token': everynetAccessToken,
-      'mqtt_host': mqttHost,
-      'mqtt_port': mqttPort,
-      'mqtt_username': mqttUsername,
-      'mqtt_password': mqttPassword,
-      'subscribe_topic': subscribeTopic,
-      'publish_topic': publishTopic,
+      'everynetAccessToken': everynetAccessToken,
+      'mqttHost': mqttHost,
+      'mqttPort': mqttPort,
+      'mqttUsername': mqttUsername,
+      'mqttPassword': mqttPassword,
+      'subscribeTopic': subscribeTopic,
+      'publishTopic': publishTopic,
     };
   }
 }

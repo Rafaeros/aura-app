@@ -52,7 +52,7 @@ class UserProfileActionButton extends StatelessWidget {
               AuraPopupMenuItem<String>(
                 value: 'profile',
                 icon: Icons.person_rounded,
-                label: 'Profile',
+                label: 'Perfil',
               ),
 
               const PopupMenuDivider(height: 1),
@@ -60,7 +60,7 @@ class UserProfileActionButton extends StatelessWidget {
               AuraPopupMenuItem<String>(
                 value: 'logout',
                 icon: Icons.logout_rounded,
-                label: 'Logout',
+                label: 'Sair',
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

@@ -17,7 +17,11 @@ class MqttConfigModel {
 
   factory MqttConfigModel.fromJson(Map<String, dynamic> json) {
     return MqttConfigModel(
-      host: (json['mqttHost'] ?? json['mqtt_host'] ?? '').toString().trim(),
+      host: (json['mqttHost'] ?? json['mqtt_host'] ?? '')
+          .toString()
+          .trim()
+          .replaceAll('mqtts://', '')
+          .replaceAll('mqtt://', ''),
       port: json['mqttPort'] ?? json['mqtt_port'] ?? 8883,
       username:
           (json['mqttUsername'] ?? json['mqtt_username'] ?? '')

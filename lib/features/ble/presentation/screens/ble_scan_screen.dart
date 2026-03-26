@@ -33,7 +33,7 @@ class _BleScanScreenState extends State<BleScanScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AuraAppBar(title: "Aura BLE Scanner", icon: Icons.bluetooth),
+      appBar: AuraAppBar(title: "Scanner BLE Aura", icon: Icons.bluetooth),
       body: RefreshIndicator(
         color: AppColors.primary,
         backgroundColor: AppColors.surface,
@@ -76,7 +76,7 @@ class _BleScanScreenState extends State<BleScanScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Text(
-            "Only Beacons",
+            "Apenas Beacons",
             style: TextStyle(
               color: AppColors.textSecondary,
               fontSize: 12,

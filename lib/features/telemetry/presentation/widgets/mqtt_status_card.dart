@@ -16,7 +16,7 @@ class MqttStatusCard extends StatelessWidget {
     Color statusColor = Colors.grey;
     String statusLabel = "Offline";
     IconData statusIcon = Icons.cloud_off_rounded;
-    String buttonLabel = "Connect";
+    String buttonLabel = "Conectar";
     Color buttonColor = AppColors.primary;
 
     switch (status) {
@@ -24,21 +24,21 @@ class MqttStatusCard extends StatelessWidget {
         statusColor = Colors.greenAccent;
         statusLabel = "Online";
         statusIcon = Icons.cloud_done_rounded;
-        buttonLabel = "Disconnect";
+        buttonLabel = "Desconectar";
         buttonColor = Colors.redAccent;
         break;
       case MqttUiStatus.connecting:
         statusColor = Colors.orangeAccent;
-        statusLabel = "Connecting...";
+        statusLabel = "Conectando...";
         statusIcon = Icons.sync;
-        buttonLabel = "Cancel";
+        buttonLabel = "Cancelar";
         buttonColor = Colors.orange;
         break;
       case MqttUiStatus.error:
         statusColor = Colors.redAccent;
-        statusLabel = "Error";
+        statusLabel = "Erro";
         statusIcon = Icons.error_outline_rounded;
-        buttonLabel = "Retry";
+        buttonLabel = "Tentar Novamente";
         buttonColor = AppColors.primary;
         break;
       case MqttUiStatus.disconnected:
@@ -70,7 +70,7 @@ class MqttStatusCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "MQTT Status",
+                        "Status MQTT",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

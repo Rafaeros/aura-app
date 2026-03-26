@@ -59,7 +59,7 @@ class _AddDeviceFormState extends State<AddDeviceForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Device Details",
+              "Detalhes do Dispositivo",
               style: TextStyle(
                 color: AppColors.textPrimary,
                 fontWeight: FontWeight.bold,
@@ -69,42 +69,42 @@ class _AddDeviceFormState extends State<AddDeviceForm> {
             const SizedBox(height: 24),
 
             AuraTextField(
-              label: "Device Name",
+              label: "Nome do Dispositivo",
               controller: _nameController,
-              hint: "e.g. Living Room Sensor",
+              hint: "ex: Sensor da Sala",
               prefixIcon: const Icon(
                 Icons.devices_other_rounded,
                 color: AppColors.primary,
               ),
-              validator: (v) => (v == null || v.isEmpty) ? 'Required' : null,
+              validator: (v) => (v == null || v.isEmpty) ? 'Obrigatório' : null,
             ),
 
             const SizedBox(height: 20),
             AuraTextField(
               label: "Dev EUI",
               controller: _devEuiController,
-              hint: "Unique Identifier (16 chars)",
+              hint: "Identificador Único (16 carac.)",
               prefixIcon: const Icon(
                 Icons.qr_code_2_rounded,
                 color: AppColors.primary,
               ),
               validator: (v) {
-                if (v == null || v.isEmpty) return 'Required';
-                if (v.length < 15) return 'Invalid EUI (too short)';
+                if (v == null || v.isEmpty) return 'Obrigatório';
+                if (v.length < 15) return 'EUI Inválido (muito curto)';
                 return null;
               },
             ),
 
             const SizedBox(height: 12),
             const Text(
-              'Unique identifier from the Everynet API',
+              'Identificador único da API Everynet',
               style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
             ),
 
             const SizedBox(height: 32),
 
             AuraPrimaryButton(
-              label: "CONFIRM REGISTRATION",
+              label: "CONFIRMAR REGISTRO",
               icon: Icons.check_circle_rounded,
               isLoading: widget.isLoading,
               onPressed: _submit,

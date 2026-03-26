@@ -1,0 +1,120 @@
+{
+  "params": {
+    "payload": "AyABAHEDIP8AAQMgAABBBAAFCGjijA==",
+    "radio": {
+      "gps_time": 1458419765516,
+      "delay": 0.04720807075500488,
+      "datarate": 2,
+      "modulation": {
+        "bandwidth": 500000,
+        "type": "LORA",
+        "coderate": "4/5",
+        "spreading": 10,
+        "inverted": true
+      },
+      "datr": "SF10BW500",
+      "hardware": {
+        "status": 1,
+        "chain": 0,
+        "power": 26.0,
+        "tmst": 1452837748,
+        "snr": 2.2,
+        "rssi": -91.0,
+        "channel": 0,
+        "gps": {
+          "lat": -23.2927,
+          "lng": -51.1732,
+          "alt": 976.0
+        }
+      },
+      "time": 1774384552.546043,
+      "freq": 923.3,
+      "size": 22
+    },
+    "counter_down": 11098,
+    "lora": {
+      "header": {
+        "confirmed": false,
+        "adr": true,
+        "ack": false,
+        "version": 0,
+        "type": 3,
+        "pending": true
+      },
+      "mac_commands": [
+        {
+          "LinkADRReq": {
+            "Redundancy": {
+              "ChMaskCntl": 7,
+              "NbTrans": 1
+            },
+            "DataRate_TXPower": {
+              "TXPower": 0,
+              "DataRate": 2
+            },
+            "ChMask": 1
+          }
+        },
+        {
+          "LinkADRReq": {
+            "Redundancy": {
+              "ChMaskCntl": 0,
+              "NbTrans": 1
+            },
+            "DataRate_TXPower": {
+              "TXPower": 0,
+              "DataRate": 2
+            },
+            "ChMask": 255
+          }
+        },
+        {
+          "LinkADRReq": {
+            "Redundancy": {
+              "ChMaskCntl": 4,
+              "NbTrans": 1
+            },
+            "DataRate_TXPower": {
+              "TXPower": 0,
+              "DataRate": 2
+            },
+            "ChMask": 0
+          }
+        },
+        {
+          "DutyCycleReq": {
+            "MaxDCycle": 0
+          }
+        },
+        {
+          "RXParamSetupReq": {
+            "Frequency": 9233000,
+            "DLsettings": {
+              "RX2DataRate": 8,
+              "RX1DRoffset": 0
+            }
+          }
+        }
+      ]
+    },
+    "port": 0,
+    "encrypted_payload": "fED48oAl5RJCvVMYee8s/F5hx/giVg=="
+  },
+  "meta": {
+    "network": "358b679dd88d47948f6e108677b4b79a",
+    "tags": [
+      "1083329111039",
+      "Teste",
+      "IoTag",
+      "Simple"
+    ],
+    "packet_hash": "d210f012836141902d55c11b1637cda7",
+    "application": "8c5c88ebd0f6af25",
+    "device_addr": "1bdec14d",
+    "time": 1774384550.075,
+    "device": "6f1ec51d7c493170",
+    "packet_id": "bcec6758c96dae75b7035e22bd2f8172",
+    "gateway": "b0fd0b7001080000"
+  },
+  "type": "downlink"
+}

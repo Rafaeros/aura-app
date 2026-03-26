@@ -58,7 +58,7 @@ class TelemetryHistoryCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       child: Text(
-                        "View All",
+                        "Ver Todos",
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColors.primary.withValues(alpha: 0.8),
@@ -97,7 +97,7 @@ class TelemetryHistoryCard extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: const Center(
         child: Text(
-          "No telemetry history available.",
+          "Nenhum histórico de telemetria disponível.",
           style: TextStyle(color: AppColors.textSecondary),
         ),
       ),

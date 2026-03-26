@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Login",
+                      "Entrar",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w800,
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 32),
 
                     AuraTextField(
-                      label: "Email",
+                      label: "E-mail",
                       controller: _emailController,
                       hint: "example@gmail.com",
                       prefixIcon: const Icon(
@@ -71,9 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 24),
 
                     AuraTextField(
-                      label: "Password",
+                      label: "Senha",
                       controller: _passwordController,
-                      hint: "Enter your password",
+                      hint: "Digite sua senha",
                       prefixIcon: const Icon(
                         Icons.lock_outlined,
                         color: AppColors.primary,
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextButton(
                         onPressed: () {}, // TODO: Forgot Password
                         child: const Text(
-                          "Forgot Password?",
+                          "Esqueceu a Senha?",
                           style: TextStyle(
                             color: AppColors.secondary,
                             fontWeight: FontWeight.w600,
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 32),
 
                     AuraPrimaryButton(
-                      label: "CONNECT TO AURA",
+                      label: "CONECTAR AO AURA",
                       isLoading: loginController.isLoading,
                       icon: Icons.arrow_forward_rounded,
                       onPressed: () => _handleLogin(loginController),
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         const SizedBox(height: 16),
         Text(
-          "Make the Invisible Visible.",
+          "Tornando o Invisível Visível.",
           style: TextStyle(
             color: AppColors.textSecondary,
             fontSize: 14,

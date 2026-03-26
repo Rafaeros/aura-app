@@ -25,7 +25,7 @@ class BleEmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           const Text(
-            "No devices found",
+            "Nenhum dispositivo encontrado",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class BleEmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const Text(
-            "Pull down to refresh or tap Start",
+            "Puxe para baixo para atualizar ou toque no Play",
             style: TextStyle(color: AppColors.textSecondary),
           ),
         ],

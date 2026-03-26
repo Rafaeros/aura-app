@@ -36,7 +36,7 @@ class _TelemetryHistoryScreenState extends State<TelemetryHistoryScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AuraAppBar(
-        title: "History: ${widget.deviceName}",
+        title: "Histórico: ${widget.deviceName}",
         leading: const AuraBackButton(),
       ),
       body: Consumer<TelemetryHistoryController>(
@@ -70,7 +70,7 @@ class _TelemetryHistoryScreenState extends State<TelemetryHistoryScreen> {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    "No telemetry logs found",
+                    "Nenhum log de telemetria encontrado",
                     style: TextStyle(color: AppColors.textSecondary),
                   ),
                 ],

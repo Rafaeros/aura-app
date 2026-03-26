@@ -7,9 +7,9 @@ class DeviceTag {
 
   factory DeviceTag.fromJson(Map<String, dynamic> json) => DeviceTag(
     id: json['id'],
-    deviceId: json['device_id'],
+    deviceId: json['deviceId'] ?? json['device_id'],
     name: json['name'] ?? '',
   );
 
-  Map<String, dynamic> toJson() => {'device_id': deviceId, 'name': name};
+  Map<String, dynamic> toJson() => {'deviceId': deviceId, 'name': name};
 }

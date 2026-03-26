@@ -14,7 +14,7 @@ class DeviceListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayName = (device.name != null && device.name!.isNotEmpty)
         ? device.name!
-        : "Unnamed Device";
+        : "Dispositivo Sem Nome";
 
     final displayEui = device.devEui ?? "N/A";
 

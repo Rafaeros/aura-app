@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:aura/core/presentation/widgets/forms/aura_primary_button.dart';
 import 'package:aura/features/auth/data/models/user_role_model.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
         icon: Icons.person,
-        title: "Profile",
+        title: "Perfil",
         leading: AuraBackButton(),
         actions: [],
       ),
@@ -70,13 +71,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _buildHeader(user.username, user.email),
 
                     const SizedBox(height: 32),
-                    _buildSectionHeader("Personal Data"),
+                    _buildSectionHeader("Dados Pessoais"),
                     AuraCard(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
                           _buildInfoRow(
-                            "Username",
+                            "Nome de Usuário",
                             user.username,
                             Icons.person,
                           ),
@@ -88,14 +89,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     if (user.company != null) ...[
                       const SizedBox(height: 32),
-                      _buildSectionHeader("My Company"),
+                      _buildSectionHeader("Minha Empresa"),
                       AuraCard(
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildInfoRow(
-                              "Company Name",
+                              "Nome da Empresa",
                               user.company!.name,
                               Icons.business,
                             ),
@@ -106,12 +107,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Icons.badge,
                             ),
 
-                            if (user.company!.settings == null) ...[
-                              SizedBox(height: 24),
+                            if (user.company!.settings == null && canEdit) ...[
+                              const SizedBox(height: 24),
 
                               AuraPrimaryButton(
                                 icon: Icons.settings,
-                                label: "Configure Integrations",
+                                label: "Configurar Integrações",
                                 onPressed: () {
                                   Navigator.pushNamed(
                                     context,
@@ -149,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ),
                                             SizedBox(width: 8),
                                             Text(
-                                              "INTEGRATIONS SETUP",
+                                              "CONFIGURAÇÃO DE INTEGRAÇÕES",
                                               style: TextStyle(
                                                 color: AppColors.primary,
                                                 fontSize: 11,
@@ -265,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       const SizedBox(height: 16),
                                       Center(
                                         child: Text(
-                                          "• Sensitive credentials hidden •",
+                                          "• Credenciais confidenciais ocultas •",
                                           style: TextStyle(
                                             color: AppColors.textSecondary
                                                 .withValues(alpha: 0.3),
@@ -298,7 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                         icon: const Icon(Icons.logout, color: Colors.redAccent),
                         label: const Text(
-                          "Logout",
+                          "Sair",
                           style: TextStyle(color: Colors.redAccent),
                         ),
                         style: OutlinedButton.styleFrom(
@@ -362,13 +363,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 InkWell(
                   onTap: () {
                     Clipboard.setData(ClipboardData(text: value));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("$label copied!"),
-                        duration: const Duration(seconds: 1),
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: AppColors.surface,
-                      ),
+                    AppNotifications.showSuccess(
+                      context: context,
+                      message: "$label copiado!"
                     );
                   },
                   borderRadius: BorderRadius.circular(20),
@@ -491,12 +488,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Icon(Icons.error_outline, size: 48, color: Colors.redAccent),
           const SizedBox(height: 16),
           const Text(
-            "Error fetching user profile",
+            "Erro ao carregar perfil do usuário",
             style: TextStyle(color: Colors.white),
           ),
           TextButton(
             onPressed: () => controller.fetchUserProfile(),
-            child: const Text("Try again"),
+            child: const Text("Tentar novamente"),
           ),
         ],
       ),

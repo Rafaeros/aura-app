@@ -23,18 +23,19 @@ class PageResponse<T> {
     Map<String, dynamic> json,
     T Function(Map<String, dynamic>) fromJsonT,
   ) {
+    final pageData = json['page'] as Map<String, dynamic>? ?? {};
     return PageResponse<T>(
       content:
-          (json['content'] as List<dynamic>)
-              .map((e) => fromJsonT(e as Map<String, dynamic>))
-              .toList(),
-      totalElements: json['totalElements'] ?? 0,
-      totalPages: json['totalPages'] ?? 0,
-      number: json['number'] ?? 0,
-      size: json['size'] ?? 10,
-      last: json['last'] ?? true,
-      first: json['first'] ?? true,
-      empty: json['empty'] ?? true,
+          (json['content'] as List<dynamic>?)
+              ?.map((e) => fromJsonT(e as Map<String, dynamic>))
+              .toList() ?? [],
+      totalElements: pageData['totalElements'] ?? json['totalElements'] ?? 0,
+      totalPages: pageData['totalPages'] ?? json['totalPages'] ?? 0,
+      number: pageData['number'] ?? json['number'] ?? 0,
+      size: pageData['size'] ?? json['size'] ?? 10,
+      last: pageData['last'] ?? json['last'] ?? true,
+      first: pageData['first'] ?? json['first'] ?? true,
+      empty: pageData['empty'] ?? json['empty'] ?? true,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -61,12 +62,9 @@ class _AuraTextFieldState extends State<AuraTextField> {
     await Clipboard.setData(ClipboardData(text: text));
 
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Copied to clipboard!"),
-          behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 1),
-        ),
+      AppNotifications.showSuccess(
+        context: context,
+        message: "Copiado para a área de transferência!",
       );
     }
   }

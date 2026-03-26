@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -30,12 +31,9 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
       );
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Device registered successfully!"),
-          backgroundColor: Colors.green,
-          behavior: SnackBarBehavior.floating,
-        ),
+      AppNotifications.showSuccess(
+        context: context,
+        message: "Dispositivo registrado com sucesso!",
       );
       Navigator.pop(context);
     } catch (e) {
@@ -52,7 +50,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
-        title: "Register Device",
+        title: "Registrar Dispositivo",
         leading: AuraBackButton(),
         actions: [],
       ),
@@ -96,7 +94,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
         ),
         const SizedBox(height: 24),
         const Text(
-          'Add New Device',
+          'Adicionar Novo Dispositivo',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w800,
@@ -106,7 +104,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Register your hardware to the network',
+          'Registre seu hardware na rede',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
         ),

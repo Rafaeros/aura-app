@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
           elevation: 0,
           items: [
             _buildNavItem(icon: Icons.dashboard_rounded, label: "Dashboard"),
-            _buildNavItem(icon: Icons.devices_other_rounded, label: "Devices"),
+            _buildNavItem(icon: Icons.devices_other_rounded, label: "Dispositivos"),
             _buildNavItem(icon: Icons.bluetooth, label: "BLE Scan"),
           ],
         ),

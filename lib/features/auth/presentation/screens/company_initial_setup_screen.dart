@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:aura/core/presentation/widgets/app_bar/aura_back_button.dart';
 import 'package:flutter/material.dart';
 
@@ -34,12 +35,9 @@ class _CompanyInitialSetupScreenState extends State<CompanyInitialSetupScreen> {
         context,
       ).pushNamedAndRemoveUntil(AppRoutes.home, (route) => false);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Configuration complete. Welcome to Aura!"),
-          backgroundColor: Colors.green,
-          behavior: SnackBarBehavior.floating,
-        ),
+      AppNotifications.showSuccess(
+        context: context,
+        message: "Configuração concluída. Bem-vindo(a) ao Aura!",
       );
     } catch (e) {
       if (mounted) {
@@ -56,7 +54,7 @@ class _CompanyInitialSetupScreenState extends State<CompanyInitialSetupScreen> {
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
         icon: Icons.settings,
-        title: "Integration Setup",
+        title: "Configuração de Integração",
         leading: AuraBackButton(),
         actions: [],
       ),
@@ -66,7 +64,7 @@ class _CompanyInitialSetupScreenState extends State<CompanyInitialSetupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Welcome!",
+              "Bem-vindo(a)!",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,
@@ -75,7 +73,7 @@ class _CompanyInitialSetupScreenState extends State<CompanyInitialSetupScreen> {
             ),
             const SizedBox(height: 8),
             const Text(
-              "To start using Aura, we need to set up the connection with Everynet and your MQTT Broker.",
+              "Para começar a usar o Aura, instale a conexão com Everynet e seu Broker MQTT.",
               style: TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 14,

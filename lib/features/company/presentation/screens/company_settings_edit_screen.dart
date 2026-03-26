@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -31,12 +32,9 @@ class _CompanySettingsEditScreenState extends State<CompanySettingsEditScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Integrations updated successfully!"),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-        ),
+      AppNotifications.showSuccess(
+        context: context,
+        message: "Integrações atualizadas com sucesso!",
       );
 
       Navigator.pop(context, true);
@@ -54,7 +52,7 @@ class _CompanySettingsEditScreenState extends State<CompanySettingsEditScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
-        title: "Integrations",
+        title: "Integrações",
         icon: Icons.settings,
         leading: AuraBackButton(),
         actions: [],
@@ -76,7 +74,7 @@ class _CompanySettingsEditScreenState extends State<CompanySettingsEditScreen> {
             const SizedBox(height: 40),
 
             Text(
-              "Changes affect real-time data collection.",
+              "As alterações afetam a coleta de dados em tempo real.",
               style: TextStyle(
                 color: AppColors.textSecondary.withValues(alpha: 0.5),
                 fontSize: 12,
@@ -93,7 +91,7 @@ class _CompanySettingsEditScreenState extends State<CompanySettingsEditScreen> {
       children: [
         const SizedBox(height: 16),
         const Text(
-          "Connection Setup",
+          "Configuração de Conexão",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -104,7 +102,7 @@ class _CompanySettingsEditScreenState extends State<CompanySettingsEditScreen> {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            "Manage the connection parameters for Everynet and your MQTT Broker.",
+            "Gerencie os parâmetros de conexão do Everynet e seu Broker MQTT.",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.textSecondary,

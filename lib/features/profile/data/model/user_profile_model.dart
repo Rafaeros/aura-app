@@ -17,18 +17,19 @@ class UserProfileModel {
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) {
+    var company = json['company'] != null ? CompanyModel.fromJson(json['company']) : null;
+    
+    // settings is returned at the root of the `/me` API response
+    if (company != null && json['settings'] != null) {
+      company = company.copyWith(settings: CompanySettingsModel.fromJson(json['settings']));
+    }
+
     return UserProfileModel(
       id: json['id']?.toString() ?? '',
       username: json['username'] ?? '',
       email: json['email'] ?? '',
-      company:
-          json['company'] != null
-              ? CompanyModel.fromJson(json['company'])
-              : null,
-      role:
-          json['role'] != null
-              ? UserRole.values.byName(json['role'])
-              : UserRole.USER,
+      company: company,
+      role: UserRole.fromString(json['role']?.toString()),
     );
   }
   Map<String, dynamic> toJson() {
@@ -91,5 +92,19 @@ class CompanyModel {
       'cnpj': cnpj,
       'settings': settings?.toJson(),
     };
+  }
+
+  CompanyModel copyWith({
+    String? id,
+    String? name,
+    String? cnpj,
+    CompanySettingsModel? settings,
+  }) {
+    return CompanyModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      cnpj: cnpj ?? this.cnpj,
+      settings: settings ?? this.settings,
+    );
   }
 }

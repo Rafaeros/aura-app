@@ -42,7 +42,7 @@ class TelemetrySyncController {
       final exists = await _deviceRepo.existsByDevEui(devEui);
 
       if (!exists) {
-        log("👻 [Sync] Ignorado: Dispositivo $devEui não cadastrado.");
+        log("👻 [Sync] Ignorado: Dispositivo '$devEui' não encontrado no banco de dados.");
         return;
       }
 

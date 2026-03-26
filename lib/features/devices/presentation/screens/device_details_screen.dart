@@ -1,3 +1,4 @@
+import 'package:aura/core/utils/app_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -89,16 +90,9 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
   void _copyToClipboard(String text, String label) {
     if (text == '-' || text.isEmpty) return;
     Clipboard.setData(ClipboardData(text: text));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "$label copied to clipboard",
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: AppColors.surface,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 1),
-      ),
+    AppNotifications.showSuccess(
+      context: context,
+      message: "$label copiado para a área de transferência",
     );
   }
 
@@ -116,7 +110,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AuraAppBar(
-        title: _device?.name ?? "Details",
+        title: _device?.name ?? "Detalhes",
         icon: Icons.cell_tower_rounded,
         leading: const AuraBackButton(),
         actions: [
@@ -142,12 +136,12 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
                     AuraPopupMenuItem<String>(
                       value: 'edit',
                       icon: Icons.edit,
-                      label: 'Edit',
+                      label: 'Editar',
                     ),
                     AuraPopupMenuItem<String>(
                       value: 'delete',
                       icon: Icons.delete,
-                      label: 'Delete',
+                      label: 'Excluir',
                       iconColor: Colors.redAccent,
                       textColor: Colors.redAccent,
                     ),
@@ -223,11 +217,11 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
 
   Widget _buildInfoCard() {
     return _buildCardStructure(
-      title: "Information",
+      title: "Informações",
       icon: Icons.info_outline,
       child: Column(
         children: [
-          _buildDetailRow("Name", _device!.name ?? '-', Icons.person),
+          _buildDetailRow("Nome", _device!.name ?? '-', Icons.person),
           _buildDetailRow("DevEui", _device!.devEui ?? '-', Icons.qr_code),
           _buildDetailRow(
             "DevAddr",
@@ -280,7 +274,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
               )
               : tagsList.isEmpty
               ? const Text(
-                "No tags assigned",
+                "Nenhuma tag atribuída",
                 style: TextStyle(color: AppColors.textSecondary),
               )
               : Wrap(
@@ -335,7 +329,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
           const SizedBox(height: 8),
           const Center(
             child: Text(
-              "No GPS data",
+              "Sem dados de GPS",
               style: TextStyle(color: AppColors.textSecondary),
             ),
           ),
@@ -346,7 +340,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
     }
 
     return _buildCardStructure(
-      title: "Geolocation",
+      title: "Geolocalização",
       icon: Icons.map_rounded,
       trailing:
           !_isLoadingPositions && positionList.isNotEmpty
@@ -357,7 +351,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: const Text(
-                  "Last 5 points",
+                  "Últimos 5 pontos",
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 10,
@@ -506,18 +500,18 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
           (context) => AlertDialog(
             backgroundColor: AppColors.surface,
             title: const Text(
-              'Delete device',
+              'Excluir dispositivo',
               style: TextStyle(color: AppColors.textPrimary),
             ),
             content: const Text(
-              'This action is irreversible.',
+              'Esta ação é irreversível.',
               style: TextStyle(color: AppColors.textSecondary),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text(
-                  'Cancel',
+                  'Cancelar',
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ),
@@ -527,7 +521,7 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
                   await _deleteDevice();
                 },
                 child: const Text(
-                  'Delete',
+                  'Excluir',
                   style: TextStyle(color: Colors.redAccent),
                 ),
               ),
@@ -556,15 +550,17 @@ class _DeviceDetailsScreenState extends State<DeviceDetailsScreen> {
       await controller.deleteDevice(_device!.id!);
       if (mounted) {
         Navigator.pop(context);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Deleted successfully')));
+        AppNotifications.showSuccess(
+          context: context,
+          message: 'Excluído com sucesso'
+        );
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+        AppNotifications.showError(
+          context: context,
+          message: 'Erro: $e'
+        );
       }
     }
   }

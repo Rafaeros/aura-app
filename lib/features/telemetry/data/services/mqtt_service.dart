@@ -115,14 +115,22 @@ class MqttService {
     await _updatesSubscription?.cancel();
 
     _updatesSubscription = client.updates!.listen((events) {
-      final recMess = events[0].payload as MqttPublishMessage;
-      final payload = MqttPublishPayload.bytesToStringAsString(
-        recMess.payload.message,
-      );
+      for (final event in events) {
+        final recMess = event.payload as MqttPublishMessage;
+        final topic = event.topic;
+        final payload = MqttPublishPayload.bytesToStringAsString(
+          recMess.payload.message,
+        );
 
-      log("📥 [MQTT Stream] Mensagem recebida. Repassando...");
+        log("📥 [MQTT Stream] Mensagem recebida de [$topic]. Repassando...");
+        if (payload.length > 100) {
+          log("📄 [MQTT Payload] ${payload.substring(0, 100)}...");
+        } else {
+          log("📄 [MQTT Payload] $payload");
+        }
 
-      _messageStreamController.add(payload);
+        _messageStreamController.add(payload);
+      }
     });
   }
 

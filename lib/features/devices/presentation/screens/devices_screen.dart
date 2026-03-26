@@ -34,7 +34,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const AuraAppBar(
-        title: 'Aura Devices',
+        title: 'Dispositivos Aura',
         icon: Icons.devices_other_rounded,
       ),
       floatingActionButton: _buildFab(context),
@@ -139,7 +139,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
             ),
             const SizedBox(height: 24),
             const Text(
-              "No Devices found",
+              "Nenhum dispositivo encontrado",
               style: TextStyle(
                 color: AppColors.textPrimary,
                 fontSize: 18,
@@ -148,7 +148,7 @@ class _DevicesScreenState extends State<DevicesScreen> {
             ),
             const SizedBox(height: 8),
             const Text(
-              "Add a new device to the Aura network",
+              "Adicione um novo dispositivo na rede Aura",
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.textSecondary),
             ),

@@ -16,21 +16,21 @@ class DevicePosition {
   factory DevicePosition.fromJson(Map<String, dynamic> json) {
     return DevicePosition(
       id: json['id'],
-      deviceId: json['device_id'],
+      deviceId: json['deviceId'] ?? json['device_id'],
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
       createdAt:
-          json['created_at'] != null
-              ? DateTime.tryParse(json['created_at'])
+          (json['createdAt'] ?? json['created_at']) != null
+              ? DateTime.tryParse(json['createdAt'] ?? json['created_at'])
               : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'device_id': deviceId,
+    'deviceId': deviceId,
     'latitude': latitude,
     'longitude': longitude,
-    'created_at': createdAt?.toIso8601String(),
+    'createdAt': createdAt?.toIso8601String(),
   };
 }

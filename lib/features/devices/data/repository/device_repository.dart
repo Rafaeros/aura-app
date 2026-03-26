@@ -1,3 +1,4 @@
+import 'package:aura/core/client/api_response.dart';
 import 'package:aura/core/client/model/page_response.dart';
 import 'package:aura/core/exception/app_exception.dart';
 import 'package:aura/features/devices/data/models/device_model.dart';
@@ -15,10 +16,14 @@ class DeviceRepository {
   }) async {
     try {
       final response = await _apiService.getAllDevices(page: page, size: size);
-      return PageResponse<DeviceModel>.fromJson(
+      final apiResponse = ApiResponse<PageResponse<DeviceModel>>.fromJson(
         response.data,
-        DeviceModel.fromJson,
+        (json) => PageResponse<DeviceModel>.fromJson(
+          json as Map<String, dynamic>,
+          DeviceModel.fromJson,
+        ),
       );
+      return apiResponse.data!;
     } catch (e) {
       throw Exception("Erro ao buscar dispositivos paginados: $e");
     }
@@ -27,7 +32,11 @@ class DeviceRepository {
   Future<DeviceModel> getDeviceByDeveui(String deveui) async {
     try {
       final response = await _apiService.getDeviceByDeveui(deveui);
-      return DeviceModel.fromJson(response.data);
+      final apiResponse = ApiResponse<DeviceModel>.fromJson(
+        response.data,
+        (json) => DeviceModel.fromJson(json as Map<String, dynamic>),
+      );
+      return apiResponse.data!;
     } catch (e) {
       throw Exception("Error to get device by deveui: $e");
     }
@@ -36,7 +45,11 @@ class DeviceRepository {
   Future<bool> existsByDevEui(String devEui) async {
     try {
       final response = await _apiService.existsByDevEui(devEui);
-      return response.data as bool;
+      final apiResponse = ApiResponse<bool>.fromJson(
+        response.data,
+        (json) => json as bool,
+      );
+      return apiResponse.data ?? false;
     } catch (e) {
       return false;
     }
@@ -44,29 +57,26 @@ class DeviceRepository {
 
   Future<DeviceModel> getDeviceById(int id) async {
     final response = await _apiService.getDeviceById(id);
-    return DeviceModel.fromJson(response.data);
+    final apiResponse = ApiResponse<DeviceModel>.fromJson(
+      response.data,
+      (json) => DeviceModel.fromJson(json as Map<String, dynamic>),
+    );
+    return apiResponse.data!;
   }
 
   Future<DeviceModel> createDevice(DeviceModel device) async {
     try {
       final response = await _apiService.createDevice(device.toJson());
-      return DeviceModel.fromJson(response.data);
+      final apiResponse = ApiResponse<DeviceModel>.fromJson(
+        response.data,
+        (json) => DeviceModel.fromJson(json as Map<String, dynamic>),
+      );
+      return apiResponse.data!;
     } on DioException catch (e) {
-      String errorMessage = "Failed to register device";
-
-      if (e.response?.data != null && e.response!.data is Map) {
-        final data = e.response!.data;
-
-        if (data['validationErrors'] != null) {
-          Map<String, dynamic> errors = data['validationErrors'];
-          if (errors.isNotEmpty) errorMessage = errors.values.first.toString();
-        } else if (data['message'] != null) {
-          errorMessage = data['message'];
-        }
-      }
-
+      if (e.error is AppException) throw e.error as AppException;
+      
       throw AppException(
-        message: errorMessage,
+        message: "Failed to register device. ${e.message}",
         severity: ErrorSeverity.WARNING,
         statusCode: e.response?.statusCode ?? 500,
       );

@@ -38,7 +38,7 @@ class DeviceTelemetryModel {
     };
 
     if (devEui != null) {
-      data['dev_eui'] = devEui;
+      data['devEui'] = devEui;
     }
 
     return data;
